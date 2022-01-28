@@ -41,7 +41,6 @@ pub fn execute(
     match msg {
         ExecuteMsg::Increment {} => try_increment(deps),
         ExecuteMsg::Reset { count } => try_reset(deps, info, count),
-        ExecuteMsg::ChangeOwner { owner } => try_reset(deps, info, count),
     }
 }
 
