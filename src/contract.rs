@@ -63,7 +63,11 @@ pub fn try_reset(deps: DepsMut, info: MessageInfo, count: i32) -> Result<Respons
     })?;
     Ok(Response::new().add_attribute("method", "try_reset"))
 }
-pub fn try_change_owner(deps: DepsMut, info: MessageInfo, new_owner: Addr) -> Result<Response, ContractError> {
+pub fn try_change_owner(
+    deps: DepsMut,
+    info: MessageInfo,
+    new_owner: Addr,
+) -> Result<Response, ContractError> {
     STATE.update(deps.storage, |mut state| -> Result<_, ContractError> {
         if info.sender != state.owner {
             return Err(ContractError::Unauthorized {});
@@ -175,7 +179,9 @@ mod tests {
 
         // change the owner
         let auth_info = mock_info("creator", &coins(2, "token"));
-        let msg = ExecuteMsg::ChangeOwner { new_owner: Addr::unchecked("new owner") };
+        let msg = ExecuteMsg::ChangeOwner {
+            new_owner: Addr::unchecked("new owner"),
+        };
         let _res = execute(deps.as_mut(), mock_env(), auth_info, msg).unwrap();
 
         let res = query(deps.as_ref(), mock_env(), QueryMsg::GetOwner {}).unwrap();
