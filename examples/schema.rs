@@ -3,7 +3,7 @@ use std::fs::create_dir_all;
 
 use cosmwasm_schema::{export_schema, remove_schemas, schema_for};
 
-use my_first_contract::msg::{CountResponse, ExecuteMsg, InstantiateMsg, QueryMsg};
+use my_first_contract::msg::{CountResponse, ExecuteMsg, InstantiateMsg, OwnerResponse, QueryMsg};
 use my_first_contract::state::State;
 
 fn main() {
@@ -17,4 +17,5 @@ fn main() {
     export_schema(&schema_for!(QueryMsg), &out_dir);
     export_schema(&schema_for!(State), &out_dir);
     export_schema(&schema_for!(CountResponse), &out_dir);
+    export_schema(&schema_for!(OwnerResponse), &out_dir);
 }
